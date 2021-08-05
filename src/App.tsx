@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 
 import './App.css';
 import {Button} from "./button/Button";
 import {Display} from "./display/Display";
 import {StartInput} from "./Input/StartInput";
 import {MaxInput} from "./Input/MaxInput";
-import {Qwerty} from "./gleb/qwertyt";
 
 const App = () => {
     const [maxCount, setMaxCount] = useState(0)
@@ -18,20 +17,18 @@ const App = () => {
     // setError(true)
     // }
     // useEffect(() => { }, [displayValue, maxCount])
-
-    const incValue = () => {
-        setDisplayValue(displayValue + 1);
-        if (displayValue >= maxCount) {
-            setDisplayValue(maxCount)
-        }
-    }
-
-
     //  [] => only first render
     // [asfaasgasfasf] => whent changed value in array
     // no [] => all times
 
 
+    const incValue = () => {
+        setDisplayValue(displayValue + 1);
+        console.log(displayValue)
+        if (displayValue >= maxCount) {
+            setDisplayValue(maxCount)
+        }
+    }
     const resetValue = () => {
         setDisplayValue(startCount);
     }
@@ -42,28 +39,25 @@ const App = () => {
         setDisplayValue(startCount)
     }
 
-    const addStartCount = (startValue: number) => {
-        setStartCount(startValue)
+    const addStartCount = (value: number) => {
         setMessage(true)
-        if (startCount > maxCount || startCount < 0) {
+        if (value > maxCount || value < 0) {
             setError(true)
         } else {
             setError(false)
         }
-
+        setStartCount(value)
     }
 
-    const addMaxCount = (maxValue: number) => {
-        debugger
-        setMaxCount(maxValue)
+    const addMaxCount = (value: number) => {
         setMessage(true)
-        if (maxCount < 0 || maxCount < startCount) {
+        if (value < 0 || value < startCount) {
             setError(true)
         } else {
             setError(false)
         }
+        setMaxCount(value)
     }
-
 
     return (
         <div className="App">
@@ -73,20 +67,17 @@ const App = () => {
                                 addStartCount={addStartCount}
                                 startCount={startCount}
                                 error={error}
-                    />
+                                setStartCount={setStartCount}/>
                     <MaxInput text={'max value:'}
                               addMaxCount={addMaxCount}
                               maxCount={maxCount}
                               error={error}/>
-
                 </div>
                 <div className="counter">
                     <Button
                         text={'set'}
                         callback={setValue}
                         disabled={maxCount < 0 || startCount === maxCount || startCount < 0 || startCount > maxCount}
-
-
                     />
                 </div>
             </div>
@@ -111,7 +102,6 @@ const App = () => {
         </div>
     );
 }
-
 export default App;
 
 
