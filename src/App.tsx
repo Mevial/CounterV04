@@ -41,7 +41,7 @@ const App = () => {
 
     const addStartCount = (value: number) => {
         setMessage(true)
-        if (value > maxCount || value < 0) {
+        if (value > maxCount || value < 0 || value === maxCount) {
             setError(true)
         } else {
             setError(false)
@@ -51,7 +51,7 @@ const App = () => {
 
     const addMaxCount = (value: number) => {
         setMessage(true)
-        if (value < 0 || value < startCount) {
+        if (value < 0 || value < startCount || value === startCount) {
             setError(true)
         } else {
             setError(false)
@@ -77,7 +77,8 @@ const App = () => {
                     <Button
                         text={'set'}
                         callback={setValue}
-                        disabled={maxCount < 0 || startCount === maxCount || startCount < 0 || startCount > maxCount}
+                        disabled={(maxCount < 0 || startCount === maxCount || startCount < 0 || startCount > maxCount || !message)}
+                        //
                     />
                 </div>
             </div>
@@ -89,7 +90,7 @@ const App = () => {
                 <div className="counter">
                     <Button
                         text={'inc'}
-                        disabled={maxCount === displayValue || maxCount < 0 || startCount < 0 || startCount > displayValue}
+                        disabled={message || maxCount === displayValue}
                         callback={incValue}
                     />
                     <Button
@@ -103,53 +104,3 @@ const App = () => {
     );
 }
 export default App;
-
-
-//----------------------------------------------------------------------------------
-//
-// import React, {useState} from 'react';
-//
-// import './App.css';
-// import {Button} from "./button/Button";
-// import {Display} from "./display/Display";
-//
-// const App = () => {
-//
-//     const [count, setCount] = useState(0);
-//     const incCount = () => {
-//         setCount(count + 1);
-//         if (count >= 5) {
-//             setCount(5)
-//         }
-//     }
-//     const resetNum = () => {
-//         setCount(0);
-//     }
-//
-//     return (
-//         <div className="App">
-//             <div className="Block">
-//                 <div className="display">
-//                     <Display
-//                         count={count}
-//                     /></div>
-//                 <div className="buttonSum">
-//                     <div className="button1">
-//                         <Button
-//                             text={'inc'}
-//                             callback={incCount}
-//                             disabled={count === 5}
-//                         />
-//                         <Button
-//                             text={'reset'}
-//                             callback={resetNum}
-//                             disabled={count === 0}
-//                         />
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// }
-//
-// export default App;

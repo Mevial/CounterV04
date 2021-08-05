@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React from "react";
 
 type InputPropsType = {
     text: string
