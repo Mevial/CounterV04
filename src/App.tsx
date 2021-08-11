@@ -1,11 +1,10 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import './App.css';
 import {Button} from "./button/Button";
 import {Display} from "./display/Display";
 import {StartInput} from "./Input/StartInput";
 import {MaxInput} from "./Input/MaxInput";
-
 
 const App = () => {
     const [maxCount, setMaxCount] = useState(0)
@@ -44,6 +43,7 @@ const App = () => {
     useEffect(() => {
         localStorage.setItem('counterValueDisplay', JSON.stringify(displayValue))
     }, [displayValue])
+
 //--------------------------------------------------------------------------------------------------------------------
 
     const incValue = () => {
