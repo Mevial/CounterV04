@@ -6,6 +6,7 @@ import {Display} from "./display/Display";
 import {StartInput} from "./Input/StartInput";
 import {MaxInput} from "./Input/MaxInput";
 
+
 const App = () => {
     const [maxCount, setMaxCount] = useState(0)
     const [startCount, setStartCount] = useState(0)
@@ -13,14 +14,37 @@ const App = () => {
     const [message, setMessage] = useState<boolean>(false)
     const [displayValue, setDisplayValue] = useState(0);
 
-    // if () {
-    // setError(true)
-    // }
-    // useEffect(() => { }, [displayValue, maxCount])
-    //  [] => only first render
-    // [asfaasgasfasf] => whent changed value in array
-    // no [] => all times
-
+    useEffect(() => {
+        let valueAsString = localStorage.getItem('counterValueMax')
+        if (valueAsString) {
+            let newValue = JSON.parse(valueAsString)
+            setMaxCount(newValue)
+        }
+    }, [])
+    useEffect(() => {
+        let valueAsString = localStorage.getItem('counterValueStart')
+        if (valueAsString) {
+            let newValue = JSON.parse(valueAsString)
+            setStartCount(newValue)
+        }
+    }, [])
+    useEffect(() => {
+        let valueAsString = localStorage.getItem('counterValueDisplay')
+        if (valueAsString) {
+            let newValue = JSON.parse(valueAsString)
+            setDisplayValue(newValue)
+        }
+    }, [])
+    useEffect(() => {
+        localStorage.setItem('counterValueMax', JSON.stringify(maxCount))
+    }, [maxCount])
+    useEffect(() => {
+        localStorage.setItem('counterValueStart', JSON.stringify(startCount))
+    }, [startCount])
+    useEffect(() => {
+        localStorage.setItem('counterValueDisplay', JSON.stringify(displayValue))
+    }, [displayValue])
+//--------------------------------------------------------------------------------------------------------------------
 
     const incValue = () => {
         setDisplayValue(displayValue + 1);
@@ -96,7 +120,7 @@ const App = () => {
                     <Button
                         text={'res'}
                         callback={resetValue}
-                        disabled={startCount === displayValue || maxCount < 0 || startCount < 0 || startCount > maxCount || startCount > displayValue}
+                        disabled={startCount === displayValue || maxCount < 0 || startCount < 0 || startCount > maxCount || startCount > displayValue || message}
                     />
                 </div>
             </div>
